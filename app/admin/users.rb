@@ -5,7 +5,7 @@ ActiveAdmin.register User, :as => "Customer" do
 
   filter :username
   filter :email
-  filter :created_at
+  filter :created_at, as: :date_time_range
 
   index do
     selectable_column

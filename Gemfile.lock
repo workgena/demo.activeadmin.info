@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/activeadmin-plugins/active_admin_datetimepicker.git
+  revision: ee2ca5f8dc4746d6d4918ae3e8ac16308b787168
+  ref: ee2ca5f8dc4746d6d4918ae3e8ac16308b787168
+  specs:
+    active_admin_datetimepicker (0.1.1)
+      xdan-datetimepicker-rails (~> 2.4)
+
+GIT
   remote: git://github.com/activeadmin/activeadmin.git
   revision: 74799b8652c6c09d632b5bd50b52027507aace3c
   specs:
@@ -246,11 +254,15 @@ GEM
       rack (>= 1.0)
       rack-test (>= 0.5.3)
     webrobots (0.1.1)
+    xdan-datetimepicker-rails (2.4.3)
+      jquery-rails
+      rails (>= 3.2.16)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_admin_datetimepicker!
   activeadmin!
   coffee-rails (~> 4.0.0)
   devise

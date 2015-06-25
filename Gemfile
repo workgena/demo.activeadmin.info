@@ -18,6 +18,8 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+gem 'active_admin_datetimepicker', github: 'activeadmin-plugins/active_admin_datetimepicker', ref: 'ee2ca5f8dc4746d6d4918ae3e8ac16308b787168'
+
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
@@ -61,4 +63,3 @@ group :test do
   gem "webrat"
   gem 'simplecov', :require => false
 end
-
