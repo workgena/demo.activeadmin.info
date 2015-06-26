@@ -12,6 +12,8 @@ LineItem.delete_all
 Order.delete_all
 User.delete_all
 Product.delete_all
+Vendor.delete_all
+Phone.delete_all
 
 # Load each product from the yaml file
 YAML.load_file(File.expand_path("../seeds/products.yml", __FILE__)).each do |product|
@@ -52,4 +54,15 @@ NB_ORDERS.times do
   end
 
   order.recalculate_price! and order.checkout! if rand(100) < 90
+end
+
+
+# Vendors and Phones
+
+YAML.load_file(File.expand_path("../seeds/vendors.yml", __FILE__)).each do |record|
+  Vendor.create! record
+end
+
+YAML.load_file(File.expand_path("../seeds/phones.yml", __FILE__)).each do |record|
+  Phone.create! record
 end

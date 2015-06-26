@@ -1,0 +1,13 @@
+---
+- :name: "Acer"
+  :id: 1
+- :name: "Apple"
+  :id: 2
+- :name: "Nokia"
+  :id: 3
+- :name: "HTC"
+  :id: 4
+- :name: "LG"
+  :id: 5
+- :name: "Sony"
+  :id: 6

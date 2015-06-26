@@ -1,0 +1,19 @@
+---
+- :name: "iPhone 6"
+  :diagonal: "6"
+  :vendor_id: 2
+- :name: "iPhone 4"
+  :diagonal: "5"
+  :vendor_id: 2
+- :name: "Lumia 720"
+  :diagonal: "4"
+  :vendor_id: 3
+- :name: "One ME"
+  :diagonal: "5"
+  :vendor_id: 4
+- :name: "Desire 820G+ dual sim"
+  :diagonal: "5"
+  :vendor_id: 4
+- :name: "Desire 320"
+  :diagonal: "4"
+  :vendor_id: 4
