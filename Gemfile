@@ -22,7 +22,6 @@ gem 'turbolinks'
 gem 'spring',        group: :development
 
 gem 'activeadmin',  github: 'activeadmin'
-gem 'inherited_resources', '~> 1.4.1'
 gem "devise"
 
 gem "faker"

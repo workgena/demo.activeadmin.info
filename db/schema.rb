@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20110426072324) do
+ActiveRecord::Schema.define(version: 20150625100532) do
 
   create_table "active_admin_comments", force: true do |t|
     t.string   "namespace"
@@ -68,6 +68,14 @@ ActiveRecord::Schema.define(version: 20110426072324) do
   add_index "orders", ["checked_out_at"], name: "index_orders_on_checked_out_at"
   add_index "orders", ["user_id"], name: "index_orders_on_user_id"
 
+  create_table "phones", force: true do |t|
+    t.string   "name",       null: false
+    t.integer  "diagonal",   null: false
+    t.integer  "vendor_id",  null: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "products", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -88,6 +96,12 @@ ActiveRecord::Schema.define(version: 20110426072324) do
     t.string   "email"
     t.string   "password_hash"
     t.string   "password_salt"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "vendors", force: true do |t|
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
