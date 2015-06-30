@@ -1,5 +1,5 @@
 ActiveAdmin.dialog_mass_fields_update = (message, inputs, callback)->
-  html = """<form id="dialog_confirm" title="#{message}"><ul>"""
+  html = """<form id="dialog_confirm" title="#{message}"><div stype="padding-right:4px;padding-left:1px;margin-right:2px"><ul>"""
   for name, type of inputs
     if /^(datepicker|checkbox|text)$/.test type
       wrapper = 'input'
@@ -12,7 +12,7 @@ ActiveAdmin.dialog_mass_fields_update = (message, inputs, callback)->
 
     klass = if type is 'datepicker' then type else ''
     html += """<li>
-      <label>#{name.charAt(0).toUpperCase() + name.slice(1)}</label>
+      <label><input type='checkbox' class='mass_update_protect_fild_flag' value='Y' /> #{name.charAt(0).toUpperCase() + name.slice(1)}</label>
       <#{wrapper} name="#{name}" class="#{klass}" type="#{type}" disabled="disabled">""" +
         (if opts then (
           for v in opts
@@ -23,24 +23,28 @@ ActiveAdmin.dialog_mass_fields_update = (message, inputs, callback)->
               $elem.text(v)
             $elem.wrap('<div>').parent().html()
         ).join '' else '') +
-        "</#{wrapper}>" +
-        "<input type='checkbox' class='mass_update_protect_fild_flag' value='Y' />" +
         "</li>"
     [wrapper, elem, opts, type, klass] = [] # unset any temporary variables
 
-  html += "</ul></form>"
-  $(html).appendTo('body').dialog
+  html += "</ul></div></form>"
+
+  form = $(html).appendTo('body')
+
+  $('body').trigger 'mass_update_modal_dialog:before_open', [form]
+
+  form.dialog
     modal: true
-    dialogClass: 'active_admin_dialog'
+    dialogClass: 'active_admin_dialog active_admin_dialog_mass_update_by_filter',
     open: ->
+      $('body').trigger 'mass_update_modal_dialog:after_open', [form]
       $('body').on 'change', '.mass_update_protect_fild_flag', ->
         if this.checked
-          $(this).prev().removeAttr('disabled')
+          $(this).parent().next().removeAttr('disabled').trigger("chosen:updated")
         else
-          $(this).prev().attr('disabled', 'disabled')
+          $(this).parent().next().attr('disabled', 'disabled').trigger("chosen:updated")
     buttons:
-      OK: ->
+      OK: (e)->
+        $(e.target).closest('.ui-dialog-buttonset').html('<span>Processing. Please wait...</span>')
         callback $(@).serializeObject()
-        $(@).dialog('close')
       Cancel: ->
         $(@).dialog('close').remove()

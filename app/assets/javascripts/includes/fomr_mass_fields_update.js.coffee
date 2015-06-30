@@ -13,3 +13,8 @@ $(document).ready ->
         }
 
         post_to_url(url, form_data)
+
+
+  $('body').on('mass_update_modal_dialog:after_open', (e, form)->
+    form.find('select[name=vendor_id]').chosen()
+  )

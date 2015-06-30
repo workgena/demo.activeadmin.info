@@ -1,7 +1,19 @@
 ActiveAdmin.register Phone do
   permit_params :name, :diagonal, :vendor_id
 
-  sidebar "Mass update/delete" do
+  config.batch_actions = true
+
+  scope :all, default: true
+  scope('LG') { |scope| scope.where(vendor: Vendor.find(5)) }
+
+  sidebar 'Batch operations',
+          only: [:index],
+          if: proc {
+            active_admin_config.batch_actions.any? &&
+                (params[:q] || params[:scope]) &&
+                (authorized?(:batch_edit, resource_class) || authorized?(:batch_destroy, resource_class))
+          }, class: 'sidebar_batch_actions_by_filters' do
+    para 'This batch actions affect all records involved by current filters and scopes'
     button 'Edit', {
                      class: :show_form_mass_fields_update,
                      data: {
@@ -13,19 +25,53 @@ ActiveAdmin.register Phone do
                          auth_token: form_authenticity_token.to_s
                      }.to_json
                  }
-    # add confirm are you shore ?
-    button 'Delete'
+
+    button_to 'Delete',
+              { action: 'batch_action', q: request.query_parameters[:q], scope: request.query_parameters[:scope] },
+              { params: { batch_action: 'batch_destroy' },
+                method: :post,
+                data: { confirm: 'Are you sure?', disable_with: 'Loading...' } }
   end
 
   batch_action :batch_update, if: proc { false } do
     unless authorized?(:batch_edit, resource_class)
-      flash[:error] = 'Access denied'
-    else
-      batch_action_collection.each do |record|
-        update_resource(record, {diagonal: "5"})
-      end
-      flash[:notice] = 'Batch update done'
+      redirect_to(:back, flash: {error: 'Access denied'}) and next
     end
+    if !params.has_key?(:changes) || params[:changes].empty?
+      redirect_to :back and next
+    end
+    permitted_changes = params.require(:changes).permit(:name, :vendor_id, :diagonal)
+    errors = []
+    batch_action_collection.each do |record|
+      res = update_resource(record, [permitted_changes])
+      errors << "#{record.id} | #{record.errors.full_messages.join('. ')}" unless res
+    end
+    if errors.empty?
+      flash[:notice] = 'Batch update done'
+    else
+      flash[:error] = errors.join(". ")
+    end
+    redirect_to :back
+  end
+
+
+  batch_action :batch_destroy, if: proc { false } do
+    authorize!(ActiveAdmin::Auth::BATCH_DESTROY, resource_class)
+    unless authorized?(:batch_destroy, resource_class)
+      redirect_to(:back, flash: {error: 'Access denied'}) and next
+    end
+
+    errors = []
+    batch_action_collection.each do |record|
+      res = destroy_resource(record)
+      errors << "#{record.id} | Cant be destroyed}" unless res
+    end
+    if errors.empty?
+      flash[:notice] = 'Batch destroy done'
+    else
+      flash[:error] = errors.join(". ")
+    end
+
     redirect_to :back
   end
 
