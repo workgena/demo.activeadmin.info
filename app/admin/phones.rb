@@ -1,5 +1,5 @@
 ActiveAdmin.register Phone do
-  permit_params :name, :diagonal, :vendor_id
+  permit_params :name, :diagonal, :vendor_id, :manufactured_at
 
   config.batch_actions = true
 
@@ -13,13 +13,16 @@ ActiveAdmin.register Phone do
                 (params[:q] || params[:scope]) &&
                 (authorized?(:batch_edit, resource_class) || authorized?(:batch_destroy, resource_class))
           }, class: 'sidebar_batch_actions_by_filters' do
-    para 'This batch actions affect all records involved by current filters and scopes'
+
+    para 'This batch operations affect all records involved by current filters and scopes'
+
     button 'Edit', {
                      class: :show_form_mass_fields_update,
                      data: {
                          inputs: {
                              name: 'text',
                              diagonal: 'text',
+                             manufactured_at: 'datepicker',
                              vendor_id: Vendor.all.map { |region| [region.name, region.id] }
                          },
                          auth_token: form_authenticity_token.to_s
@@ -33,6 +36,7 @@ ActiveAdmin.register Phone do
                 data: { confirm: 'Are you sure?', disable_with: 'Loading...' } }
   end
 
+
   batch_action :batch_update, if: proc { false } do
     unless authorized?(:batch_edit, resource_class)
       redirect_to(:back, flash: {error: 'Access denied'}) and next
@@ -40,7 +44,7 @@ ActiveAdmin.register Phone do
     if !params.has_key?(:changes) || params[:changes].empty?
       redirect_to :back and next
     end
-    permitted_changes = params.require(:changes).permit(:name, :vendor_id, :diagonal)
+    permitted_changes = params.require(:changes).permit(:name, :vendor_id, :diagonal, :manufactured_at)
     errors = []
     batch_action_collection.each do |record|
       res = update_resource(record, [permitted_changes])
@@ -56,7 +60,6 @@ ActiveAdmin.register Phone do
 
 
   batch_action :batch_destroy, if: proc { false } do
-    authorize!(ActiveAdmin::Auth::BATCH_DESTROY, resource_class)
     unless authorized?(:batch_destroy, resource_class)
       redirect_to(:back, flash: {error: 'Access denied'}) and next
     end

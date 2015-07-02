@@ -4,8 +4,9 @@
       display: block;
       margin-bottom: 2px;
     }
-    input[type=text] {
+    input[type=text], input[type=datepicker] {
       width: calc(100% - 20px);
+      padding: 8px 10px 7px;
     }
     select {
       width: 100%;
