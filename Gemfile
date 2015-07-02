@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.1.5'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.8'
@@ -18,11 +17,12 @@ gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
+gem 'chosen-rails'
+
 # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
 gem 'spring',        group: :development
 
-gem 'activeadmin',  github: 'activeadmin'
-gem 'inherited_resources', '~> 1.4.1'
+gem 'activeadmin',  github: 'workgena/activeadmin', branch: 'modal_dialog_trigger_events'
 gem "devise"
 
 gem "faker"
