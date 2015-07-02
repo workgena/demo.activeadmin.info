@@ -1,7 +1,7 @@
 # The Active Admin Store
 
-This is a test application to demo Active Admin.
-Cloned from http://demo.activeadmin.info
+Demo application demonstrates new event on ActiveAdmin.modal_dialog.
+Issue #3991
 
 
 # Start local
@@ -9,13 +9,18 @@ Cloned from http://demo.activeadmin.info
 ```
 $ git clone https://github.com/workgena/demo.activeadmin.info.git
 $ cd demo.activeadmin.info
-
+$ git checkout modal_dialog
 $ bundle install
+
 $ bundle exec rake db:setup
 
 $ bundle exec rails s
 ```
 
-In you browser go to: http://localhost:3000/admin
+In your browser go to http://localhost:3000/admin
 
-User Authentication dont needed
+And open DevTools -> Console
+
+And you will se two log-messages from listening events
+
+https://github.com/workgena/demo.activeadmin.info/blob/modal_dialog/app/assets/javascripts/active_admin.js.coffee
