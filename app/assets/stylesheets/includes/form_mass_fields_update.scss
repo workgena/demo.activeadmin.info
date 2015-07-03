@@ -1,5 +1,8 @@
 .active_admin_dialog_mass_update_by_filter {
+
   form {
+    overflow-y: scroll;
+
     label {
       display: block;
       margin-bottom: 2px;

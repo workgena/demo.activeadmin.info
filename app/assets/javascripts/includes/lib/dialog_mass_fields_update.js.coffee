@@ -35,6 +35,7 @@ ActiveAdmin.dialog_mass_fields_update = (message, inputs, callback)->
   form.dialog
     modal: true
     dialogClass: 'active_admin_dialog active_admin_dialog_mass_update_by_filter',
+    maxHeight: window.innerHeight - window.innerHeight * 0.1,
     open: ->
       $('body').trigger 'mass_update_modal_dialog:after_open', [form]
       $('body').on 'change', '.mass_update_protect_fild_flag', ->
