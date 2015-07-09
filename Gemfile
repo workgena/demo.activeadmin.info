@@ -19,13 +19,15 @@ gem 'chosen-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
-# Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
-gem 'spring',        group: :development
-
 gem 'activeadmin',  github: 'activeadmin'
-gem "devise"
+gem 'devise'
 
-gem "faker"
+
+#gem 'active_admin_scoped_collection_actions', path: '/Users/workadmin/projects/gems/active_admin_scoped_collection_actions'
+gem 'active_admin_scoped_collection_actions', github: 'workgena/active_admin_scoped_collection_actions'
+gem 'pundit'
+
+gem 'faker'
 gem 'newrelic_rpm', '~> 3.9'
 gem 'hoptoad_notifier', '2.4.11'
 
