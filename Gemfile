@@ -22,9 +22,10 @@ gem 'turbolinks'
 gem 'activeadmin',  github: 'activeadmin'
 gem 'devise'
 
+gem 'active_admin_datetimepicker'
 
 #gem 'active_admin_scoped_collection_actions', path: '/Users/workadmin/projects/gems/active_admin_scoped_collection_actions'
-gem 'active_admin_scoped_collection_actions', github: 'workgena/active_admin_scoped_collection_actions'
+gem 'active_admin_scoped_collection_actions', github: 'activeadmin-plugins/active_admin_scoped_collection_actions'
 gem 'pundit'
 
 gem 'faker'
