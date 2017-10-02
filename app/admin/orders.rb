@@ -3,7 +3,7 @@ ActiveAdmin.register Order do
   actions :index, :show
 
   filter :total_price
-  filter :checked_out_at
+  filter :checked_out_at, as: :date_time_range
 
   scope :all, :default => true
   scope :in_progress
